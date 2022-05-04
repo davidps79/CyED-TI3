@@ -31,9 +31,9 @@ public class Database {
     private int[] countryPopulation;
         
     public Database() throws Exception {
-        TestTree test = new TestTree();
-        test.start();
-        /*BufferedReader inCountry = new BufferedReader(new FileReader(new File("./data/countries.csv")));
+        //TestTree test = new TestTree();
+        //test.start();
+        BufferedReader inCountry = new BufferedReader(new FileReader(new File("./data/countries.csv")));
         ageData = new int[ageRange][2];
         ageMarks = new float[ageRange];
         heightData = new int[2][heightRange][2];
@@ -98,7 +98,7 @@ public class Database {
         }
 
         generateData();
-        System.out.println("TOTAL: " + outN);*/
+        System.out.println("TOTAL: " + outN);
     }
     
     //String id, String name, String lastname, int age, int gender, int height, String nationality

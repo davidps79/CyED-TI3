@@ -14,7 +14,7 @@ public class AvlTree<E> {
 		Node<E> node = new Node<E>(e);
 		
 		if (this.root==null) this.root = node;
-		else root.addNode(node, comparator).checkFb();
+		else checkFb(root.addNode(node, comparator));
 	}
 
     public Node<E> getRoot(){
@@ -39,98 +39,82 @@ public class AvlTree<E> {
             root.health();
     }
 
-	/*public void checkFb(Node<E> node) {
+	public void checkFb(Node<E> node) {
 		if (node.getFb()<-1 || node.getFb()>1) balance(node);
 		else if (node.getParent() != null) checkFb(node.getParent());
-	}*/
+	}
 
-    /*private void balance(Node<E> node) {
+	public void balance(Node<E> node) {
 		int fbq; 
 		if (node.getFb() == 2) {
 			fbq = node.getRight().getFb();
-			if (fbq == 0 || fbq == 1) leftRotate(node);
+			if (fbq == 0 || fbq == 1) preLeftRotate(node);
 			else {
-				rightRotate(node.getRight());
-				leftRotate(node);
+				preRightRotate(node.getRight());
+				preLeftRotate(node);
 			}
 		} else if (node.getFb() == -2) {
 			fbq = node.getLeft().getFb();
-			if (fbq == 0 || fbq == -1) rightRotate(node);
+			if (fbq == 0 || fbq == -1) preRightRotate(node);
 			else {
-				leftRotate(node.getLeft());
-				rightRotate(node);
+				preLeftRotate(node.getLeft());
+				preRightRotate(node);
 			}
 		} else {
-			//checkHealth();
-			System.out.println(((Person) node.getItem()).getName()+node.getFb() + " EERRROR");
+			checkHealth();
+			System.out.println(node.getFb() + " EERRROR");
 			System.exit(0);
 		}
-	}*/
+	}
 
-	/*public void leftRotate(Node<E> node) {
+	public void preLeftRotate(Node<E> node) {
+		Node<E> tempParent = node.getParent();
+		if (tempParent != null) {
+			if (tempParent.getLeft() == node) tempParent.setLeft(leftRotate(node));
+			else tempParent.setRight(leftRotate(node));
+			tempParent.update();
+		} else setRoot(leftRotate(node));
+	}
+
+	public Node<E> leftRotate(Node<E> node) {
 		Node<E> tempRight = node.getRight();
-    
-		if (node.getParent() != null) {
-			if (node.getParent().getLeft() != null && node.getParent().getLeft().equals(node)) node.getParent().setLeft(node.getRight());
-			else node.getParent().setRight(node.getRight());
-		}
+		Node<E> tempChild = node.getRight().getLeft();
+		node.getRight().setLeft(node);
+		node.setRight(tempChild);
 
-		if (node.getRight().getLeft() != null) node.setRight(node.getRight().getLeft());
-		else node.setRight(null);
+		node.update();
+		tempRight.updateR();
 
-		tempRight.setLeft(node);
-
-		node.updateHeight();
-
-		if (tempRight.getParent() != null) {
-			tempRight.getParent().updateHeight();
-			tempRight.getParent().recalculateFb();
-		}
-
-        if (node.equals(root)) setRoot(tempRight);
+		return tempRight;
 	}
 
-	public void rightRotate(Node<E> node) {
+	public void preRightRotate(Node<E> node) {
+		Node<E> tempParent = node.getParent();
+		if (tempParent != null) {
+			if (tempParent.getLeft() == node) tempParent.setLeft(rightRotate(node));
+			else tempParent.setRight(rightRotate(node));
+			tempParent.updateR();
+		} else setRoot(rightRotate(node));
+	}
+
+	public Node<E> rightRotate(Node<E> node) {
 		Node<E> tempLeft = node.getLeft();
+		Node<E> tempChild = node.getLeft().getRight();
+		node.getLeft().setRight(node);
+		node.setLeft(tempChild);
 
-		if (node.getParent() != null) {
-			if (node.getParent().getLeft() != null && node.getParent().getLeft().equals(node)) node.getParent().setLeft(node.getLeft());
-			else node.getParent().setRight(node.getLeft());
-		}
+		node.update();
+		tempLeft.update();
 
-		if (node.getLeft().getRight() != null) node.setLeft(node.getLeft().getRight());
-		else node.setLeft(null);
-
-		tempLeft.setRight(node);
-
-		node.updateHeight();
-
-		if (tempLeft.getParent() != null) {
-			tempLeft.getParent().updateHeight();
-			tempLeft.getParent().recalculateFb();
-		}
-
-        if (node.equals(root)) setRoot(tempLeft);
-	}*/
-/*
-	public boolean delete(Node<E> toDelete) {
-		if (root == null) return false;
-		else {
-			boolean found = true; // root.search(toDelete);
-			if(found) {
-				root = root.delete(toDelete);
-			}
-		}
-		return true;
+		return tempLeft;
 	}
-	
-	public boolean search(double value) {
+
+	/*public boolean search(double value) {
 		if (root != null) {
 			return root.searchNode(value);
 		} else {
 			return false;
 		}
-	}
-*/
+	}*/
 
 }
