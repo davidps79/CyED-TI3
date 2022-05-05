@@ -6,7 +6,7 @@
 	Developers: 
 		Juan David Bahamon Rodriguez - A00375826
 		Carlos Javier Bolaños Riascos - A00377995
-		Samuel Hernández Espitia - A0037
+		Samuel Hernández Espitia - A00375392
 		David Esteban Peñaranda Scarpetta - A00375827
 	
   **Description:** 
