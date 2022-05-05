@@ -1,13 +1,20 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class AvlTree<E> {
 	private Node<E> root;
     private Comparator<E> comparator;
+	private int searchCounter;
+	private int maxCoincidences;
+	private ArrayList<String> coincidences;
 
-    public AvlTree(Comparator<E> comparator) {
+    public AvlTree(Comparator<E> comparator, int maxCoincidences) {
         this.comparator = comparator;
+		this.maxCoincidences = maxCoincidences;
+		this.coincidences = new ArrayList<String>();
+		this.searchCounter = 0;
     }
 	
 	public void add(E e) {
@@ -121,12 +128,36 @@ public class AvlTree<E> {
 		return tempLeft;
 	}
 
-	public String searchCoincidence(Node<E> node, E person) {
-		//TODO
-		if (comparator.compare(person, node.getItem())>0){
-			
+	public void resetSearch(){
+		searchCounter=0;
+		coincidences.clear();
+	}
+
+	public ArrayList<String> getCoincidences(){
+		return coincidences;
+	}
+
+	public void searchCoincidenceByName(Node<E> node, String toSearch) {
+		if (searchCounter<maxCoincidences) {
+			String name = ((Person) node.getItem()).getName();
+			if (name.length()>=toSearch.length()) {
+				int result = toSearch.compareTo(name.substring(0, toSearch.length()));
+				if (result>0){
+					if (node.getRight() != null) searchCoincidenceByName(node.getRight(), toSearch);
+				} else if (result<0) {
+					if (node.getLeft() != null) searchCoincidenceByName(node.getLeft(), toSearch);
+				} else {
+					coincidences.add(name);
+					searchCounter++;
+					if (node.getLeft() != null) searchCoincidenceByName(node.getLeft(), toSearch);
+					if (node.getRight() != null) searchCoincidenceByName(node.getRight(), toSearch);
+				}
+			}
 		}
-		return null;
+	}
+
+	public void searchCoincidenceByName(String toSearch) {
+		if (root != null) searchCoincidenceByName(root, toSearch);
 	}
 
 	/*public boolean search(double value) {

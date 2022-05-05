@@ -10,14 +10,12 @@ import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
-import comparator.FullnameComparator;
-import comparator.IdComparator;
-import comparator.LastnameComparator;
-import comparator.NameComparator;
+import comparator.*;
 
 public class Database {
-    private int totalPeople = 1_000;
+    private int totalPeople = 10_000;
     private BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     private AvlTree<Person> peopleByName;
@@ -34,6 +32,8 @@ public class Database {
     private final int countries = 55; 
     private int[][] distribution;
     private int[] countryPopulation;
+
+    private final int SEARCH_COINCIDENCES = 100;
         
     public Database() throws Exception {
         //TestTree test = new TestTree();
@@ -46,10 +46,10 @@ public class Database {
     
         loadGeneratorData();
 
-        peopleByName = new AvlTree<Person>(new NameComparator());
-        peopleByLastName = new AvlTree<Person>(new LastnameComparator());
-        peopleByFullname = new AvlTree<Person>(new FullnameComparator());
-        peopleById = new AvlTree<Person>(new IdComparator());
+        peopleByName = new AvlTree<Person>(new NameComparator(), SEARCH_COINCIDENCES);
+        peopleByLastName = new AvlTree<Person>(new LastnameComparator(), SEARCH_COINCIDENCES);
+        peopleByFullname = new AvlTree<Person>(new FullnameComparator(), SEARCH_COINCIDENCES);
+        peopleById = new AvlTree<Person>(new IdComparator(), SEARCH_COINCIDENCES);
         
         countryPopulation = new int[countries];
         distribution = new int[countries][ageRange];
@@ -137,7 +137,8 @@ public class Database {
         
         int seconds = (int) starting.until(LocalTime.now(), ChronoUnit.SECONDS);
         out.write((seconds/60) + " : " + (seconds%60));
-        out.close();
+        getCoincidences("David");
+        out.flush();
     }
 
     public void loadGeneratorData() throws IOException {
@@ -185,5 +186,14 @@ public class Database {
         }
 
         return randomLine;
+    }
+
+    public void getCoincidences(String toSearch) {
+        peopleByName.searchCoincidenceByName(toSearch);
+        String s = "";
+        ArrayList<String> arr = peopleByName.getCoincidences();
+        for (int i=0; i<arr.size(); i++) {
+            System.out.println(arr.get(i));
+        }
     }
 }
