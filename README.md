@@ -4,6 +4,8 @@
 ### About project:
 
 	Developers: 
+	
+	
 		Juan David Bahamon Rodriguez - A00375826
 		Carlos Javier Bolaños Riascos - A00377995
 		Samuel Hernández Espitia - A00375392
