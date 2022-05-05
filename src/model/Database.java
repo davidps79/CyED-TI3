@@ -12,7 +12,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class Database {
-    private int totalPeople = 60;
+    private int totalPeople = 1_000;
     private BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     private AvlTree<Person> peopleByName;
@@ -124,9 +124,7 @@ public class Database {
                         countriesData[i][0]
                     );
                     
-                    System.out.println(person);
-                    peopleByName.add(person);
-                    /*TreeAdder add1 = new TreeAdder(person, peopleByName); add1.start();
+                    TreeAdder add1 = new TreeAdder(person, peopleByName); add1.start();
                     TreeAdder add2 = new TreeAdder(person, peopleByLastName); add2.start();
                     TreeAdder add3 = new TreeAdder(person, peopleByFullname); add3.start();
                     TreeAdder add4 = new TreeAdder(person, peopleById); add4.start();
@@ -134,7 +132,7 @@ public class Database {
                     add1.join();
                     add2.join();
                     add3.join();
-                    add4.join();*/
+                    add4.join();
                     counter++;
                 }
             }
@@ -143,8 +141,6 @@ public class Database {
         
         int seconds = (int) starting.until(LocalTime.now(), ChronoUnit.SECONDS);
         out.write((seconds/60) + " : " + (seconds%60));
-        System.out.println(peopleByName.inOrder());
-        peopleByName.checkHealth();
         out.close();
     }
 

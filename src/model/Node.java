@@ -68,7 +68,6 @@ public class Node<E> {
 
 	public Node<E> addNode(Node<E> node, Comparator<E> comparator) {
 		if (comparator.compare(this.getItem(), node.getItem())>0) {
-			fb++;
 			if (right==null) {
 				if (isLeaf()) {
 					height++;
@@ -80,7 +79,6 @@ public class Node<E> {
 				right.addNode(node, comparator);
 			}
 		} else {
-			fb--;
 			if (left == null) {
 				if (isLeaf()) {
 					height++;
@@ -93,6 +91,7 @@ public class Node<E> {
 			}	
 		}
 
+		node.updateR();
 		return node;
 	}
 	

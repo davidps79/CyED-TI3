@@ -53,6 +53,9 @@ public class AvlTree<E> {
 				preRightRotate(node.getRight());
 				preLeftRotate(node);
 			}
+			//System.out.println("START---------------");
+			//checkHealth();
+			//System.out.println("END----------");
 		} else if (node.getFb() == -2) {
 			fbq = node.getLeft().getFb();
 			if (fbq == 0 || fbq == -1) preRightRotate(node);
@@ -60,9 +63,18 @@ public class AvlTree<E> {
 				preLeftRotate(node.getLeft());
 				preRightRotate(node);
 			}
+			//System.out.println("START---------------");
+			//checkHealth();
+			//System.out.println("END----------");
+
 		} else {
 			checkHealth();
 			System.out.println(node.getFb() + " EERRROR");
+			String s = "left: ";
+			if (node.getLeft()!=null) s+= node.getLeft().getHeight();
+			s += "\nright: ";
+			if (node.getRight()!=null) s+= node.getRight().getHeight();
+			System.out.println(s);
 			System.exit(0);
 		}
 	}
@@ -72,7 +84,7 @@ public class AvlTree<E> {
 		if (tempParent != null) {
 			if (tempParent.getLeft() == node) tempParent.setLeft(leftRotate(node));
 			else tempParent.setRight(leftRotate(node));
-			tempParent.update();
+			tempParent.updateR();
 		} else setRoot(leftRotate(node));
 	}
 
@@ -83,7 +95,7 @@ public class AvlTree<E> {
 		node.setRight(tempChild);
 
 		node.update();
-		tempRight.updateR();
+		tempRight.update();
 
 		return tempRight;
 	}
