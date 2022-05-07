@@ -3,6 +3,7 @@ package model;
 import java.io.FileNotFoundException;
 
 import comparator.NameComparator;
+import dataStructures.AvlTree;
 
 public class TestTree {
     AvlTree<Person> test = new AvlTree<Person>(new NameComparator(), 10);

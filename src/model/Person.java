@@ -5,14 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 
 public class Person implements Serializable {
-    private String id;
-    private String name;
+	private static final long serialVersionUID = 1L;
+	private String name;
     private String lastname;
     private int age;
     private LocalDate birthDate;
     private Gender gender;
     private int height;
     private String nationality;
+    private String id;
+    private String pictureLocation;
     
     public Person(String id, String name, String lastname, int age, int gender, int height, String nationality) throws FileNotFoundException {
         this.id = id;
@@ -22,6 +24,7 @@ public class Person implements Serializable {
         this.nationality = nationality;        
         this.age = age;
         this.height = height;
+        this.pictureLocation = null;
         
         //Calcular fecha de nacimiento
         int birthYear = 2022-age;
@@ -40,58 +43,75 @@ public class Person implements Serializable {
         else this.gender = Gender.MALE;
     }
 
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+    
     public int randomNumberBetween(int min, int max) {
         return (int) (Math.random() * (max + 1 - min)) + min;
     }
 
-    public String getId(){
-        return id;
-    }
-
-    public void setId(String id){
-        this.id=id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name=name;
-    }
-
-    public String getLastName(){
-        return lastname;
-    }
-
-    public void setLastName(String lastname){
-        this.lastname=lastname;
-    }
-
-    public LocalDate getBirthDate(){
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate){
-        this.birthDate=birthDate;
-    }
-
-    public Gender getGender(){
-        return gender;
-    }
-
-    public void setGender(Gender gender){
-        this.gender=gender;
-    }
-
-    public int getHeight(){
-        return height;
-    }
-
-    public void setHeight(int height){
-        this.height=height;
-    }
-
+    
     public String toString2() {
         return id + ": " + name + " " + lastname + " " + gender.toString().toLowerCase() + " " + age + " years - Birth: " + birthDate.toString() +" Height: " + height + " cm" + "; Country: " + nationality;
     }
@@ -100,4 +120,16 @@ public class Person implements Serializable {
     public String toString() {
         return name;
     }
+
+	public String getFullname() {
+		return name + " " + lastname;
+	}
+
+	public String getPictureLocation() {
+		return pictureLocation;
+	}
+
+	public void setPictureLocation(String pictureLocation) {
+		this.pictureLocation = pictureLocation;
+	}
 }

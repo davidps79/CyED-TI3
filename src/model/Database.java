@@ -13,9 +13,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import comparator.*;
+import dataStructures.AvlTree;
 
 public class Database {
-    private int totalPeople = 100_000;
+    private int totalPeople;
+    
+    public int getTotalPeople() {
+    	return totalPeople;
+    }
+    
     private BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     private AvlTree<Person> peopleByName;
@@ -35,10 +41,9 @@ public class Database {
 
     private final int SEARCH_COINCIDENCES = 100;
         
-    public Database() throws Exception {
-        TestTree test = new TestTree();
-        test.start();
-        /*BufferedReader inCountry = new BufferedReader(new FileReader(new File("./data/countries.csv")));
+    public Database(int totalPeople) throws Exception {
+    	this.totalPeople = totalPeople;
+        BufferedReader inCountry = new BufferedReader(new FileReader(new File("./data/countries.csv")));
         ageData = new int[ageRange][2];
         ageMarks = new float[ageRange];
         heightData = new int[2][heightRange][2];
@@ -94,12 +99,12 @@ public class Database {
             }
         }
 
-        generateData();*/
+        generateData();
     }
     
-    //String id, String name, String lastname, int age, int gender, int height, String nationality
-    /*public void generateData() throws FileNotFoundException, Exception {
+    public void generateData() throws FileNotFoundException, Exception {
         LocalTime starting = LocalTime.now();
+        
         for (int i=0; i<countries; i++) {
             int counter = 0;
             for (int j=0; j<ageRange; j++) {
@@ -137,7 +142,6 @@ public class Database {
         
         int seconds = (int) starting.until(LocalTime.now(), ChronoUnit.SECONDS);
         out.write((seconds/60) + " : " + (seconds%60));
-        getCoincidences("D");
         out.flush();
     }
 
@@ -188,16 +192,23 @@ public class Database {
         return randomLine;
     }
 
-    public void getCoincidences(String toSearch) {
-        peopleByName.searchCoincidenceByName(toSearch);
-        String s = "";
-        ArrayList<String> arr = peopleByName.getCoincidences();
-        for (int i=0; i<arr.size(); i++) {
-            System.out.println(arr.get(i));
-        }
-    }*/
-
-    public void update() {
-        
+    public ArrayList<Person> getCoincidences(String filter, String toSearch) {
+    	ArrayList<Person> arr = new ArrayList<Person>();
+    	switch(filter) {
+    	case "Nombre":
+        	arr = peopleByName.searchCoincidence(filter, toSearch);
+    		break;
+    	case "Apellido":
+        	arr = peopleByLastName.searchCoincidence(filter, toSearch);
+    		break;
+    	case "Código":
+        	arr = peopleById.searchCoincidence(filter, toSearch);
+    		break;
+    	case "Nombre completo":
+        	arr = peopleByFullname.searchCoincidence(filter, toSearch);
+    		break;
+    	}
+    	
+        return arr;
     }
 }

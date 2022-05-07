@@ -2,19 +2,18 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.FileNotFoundException;
-
 import org.junit.jupiter.api.Test;
-
+import java.io.FileNotFoundException;
 import comparator.FullnameComparator;
+import dataStructures.AvlTree;
 
 public class AVLTest {
 
-    AvlTree test;
+    AvlTree<Person> test;
     FullnameComparator fullComparator=new FullnameComparator();
 
 	public void setupStage1() throws FileNotFoundException{
-        test=new AvlTree(fullComparator, 10);
+        test = new AvlTree<>(fullComparator, 10);
         Person person= new Person("id",  "Pedro", "lastname", 10, 0, 120, "nationality");
         test.add(person);
         Person person1= new Person("id",  "Ramiro", "lastname", 10, 0, 120, "nationality");
@@ -28,13 +27,13 @@ public class AVLTest {
     }
     
     public void setupStage2() throws FileNotFoundException{
-        test=new AvlTree(fullComparator, 10);
+        test = new AvlTree<>(fullComparator, 10);
         Person person= new Person("id",  "Pedro", "lastname", 10, 0, 120, "nationality");
         test.add(person);
     }
     
     public void setupStage3() throws FileNotFoundException{
-        test=new AvlTree(fullComparator, 10);
+        test = new AvlTree<>(fullComparator, 10);
         Person person= new Person("id",  "Pedro", "lastname", 10, 0, 120, "nationality");
         test.add(person);
         test.delete(test.searchNode("id"));

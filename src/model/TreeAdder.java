@@ -1,5 +1,7 @@
 package model;
 
+import dataStructures.AvlTree;
+
 public class TreeAdder extends Thread {
     private Person person;
     private AvlTree<Person> tree;
