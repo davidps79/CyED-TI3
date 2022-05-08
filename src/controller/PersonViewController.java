@@ -6,43 +6,61 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import application.Main;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Gender;
 import model.Person;
 
 public class PersonViewController {
 	private Main main;
+	private Person person;
+	private boolean saveChanges = true;
 	
     @FXML
-    private Label age;
+    private TextField age;
 
     @FXML
-    private Label country;
+    private TextField country;
 
     @FXML
-    private Label fullname;
+    private TextField name;
+    
+    @FXML
+    private TextField lastname;
 
     @FXML
-    private Label gender;
+    private ComboBox<String> gender;
 
     @FXML
-    private Label height;
+    private TextField height;
 
     @FXML
-    private Label id;
+    private TextField id;
 
     @FXML
     private ImageView picture;
-
+    
+    @FXML
+    private DatePicker birthDate;
+    
+    @FXML
+    private Button editDataButton;
+    
     public void setMain(Main main) {
     	this.main = main;
     }
 
 	public void showData(Person person) {
+		this.person = person;
 		String pictureLocation = person.getPictureLocation();
 		if (pictureLocation == null) {
 			String downloadedImage = "files/image/" + person.getId() + ".jpg";
@@ -57,14 +75,27 @@ public class PersonViewController {
 		
 		Image image = new Image("file:files/image/" + person.getId() + ".jpg");
 		picture.setImage(image);
-		age.setText(person.getAge() + " years");
+		age.setText(person.getAge() + "");
 		country.setText(person.getNationality());
-		fullname.setText(person.getName() + " " + person.getLastname());
-		gender.setText(person.getGender().toString().toLowerCase());
-		height.setText(person.getHeight() + " cm");
+		name.setText(person.getName());
+		lastname.setText(person.getLastname());
+		
+		if (person.getGender() == Gender.FEMALE) gender.setValue("Femenino");
+		else gender.setValue("Masculino");
+		
+		height.setText(person.getHeight() + "");
 		id.setText(person.getId());
+		birthDate.setValue(person.getBirthDate());
 	}
 
+	@FXML
+	void initialize() {
+		ArrayList<String> arr = new ArrayList<>();
+		arr.add("Masculino");
+		arr.add("Femenino");
+		gender.setItems(FXCollections.observableList(arr));
+	}
+	
 	public void downloadImage(String search, String path) throws IOException {
 
 	    // This will get input data from the server
@@ -122,5 +153,31 @@ public class PersonViewController {
 	    // This is a must
 	    outputStream.close();
 	    inputStream.close();
+	}
+	
+	@FXML
+	void editData() {
+		if (saveChanges) {
+			try {
+				main.getBack().deletePerson(person);
+				main.getBack().addPerson(
+					new Person(
+						person.getId(), 
+						name.getText(), 
+						lastname.getText(), 
+						Integer.parseInt(age.getText()), 
+						gender.getValue(), 
+						Integer.parseInt(height.getText()), 
+						country.getText(),
+						birthDate.getValue(),
+						person.getPictureLocation()
+					)
+				);
+				this.person = null;
+				main.closePopUp();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

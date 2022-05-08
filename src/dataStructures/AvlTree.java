@@ -1,9 +1,8 @@
 package dataStructures;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-import javax.xml.bind.helpers.ValidationEventImpl;
+import java.util.Comparator;
 
 import model.Person;
 

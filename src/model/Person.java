@@ -1,6 +1,9 @@
 package model;
 
 import java.time.LocalDate;
+
+import dataStructures.Node;
+
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 
@@ -15,12 +18,12 @@ public class Person implements Serializable {
     private String nationality;
     private String id;
     private String pictureLocation;
+    private Node<Person> node;
     
     public Person(String id, String name, String lastname, int age, int gender, int height, String nationality) throws FileNotFoundException {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
-        this.height=height;
         this.nationality = nationality;        
         this.age = age;
         this.height = height;
@@ -41,6 +44,22 @@ public class Person implements Serializable {
         // Género
         if (gender == 1) this.gender = Gender.FEMALE;
         else this.gender = Gender.MALE;
+    }
+    
+    public Person(String id, String name, String lastname, int age, String gender, int height, 
+    String nationality, LocalDate birthDate, String pictureLocation) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.gender = Gender.FEMALE;
+        if (gender.equals("Masculino")) this.gender = Gender.MALE;
+        this.height = height;
+        this.nationality = nationality;        
+        this.age = age;
+        this.pictureLocation = null;
+        this.birthDate = birthDate;
+        this.pictureLocation = pictureLocation;
+        this.node = null;
     }
 
     public String getId() {
@@ -131,5 +150,13 @@ public class Person implements Serializable {
 
 	public void setPictureLocation(String pictureLocation) {
 		this.pictureLocation = pictureLocation;
+	}
+	
+	public void setNode(Node<Person> node) {
+		this.node = node;
+	}
+	
+	public Node<Person> getNode() {
+		return this.node;
 	}
 }

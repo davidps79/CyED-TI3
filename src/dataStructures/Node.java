@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import model.Person;
 
-public class Node<E> {
+public class Node<E extends Person> {
 	private E item;
 	private Node<E> parent;
 	private Node<E> left;
@@ -12,10 +12,12 @@ public class Node<E> {
 	private int fb;
 	private int height;
 
+	@SuppressWarnings("unchecked")
 	public Node(E e){
 		this.item = e;
 		this.height = 1;
 		this.fb=0;
+		e.setNode((Node<Person>) this);
 	}
 	
 	public E getItem() {

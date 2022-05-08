@@ -1,12 +1,13 @@
 package controller;
 
 import application.Main;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import model.ShowProgressBar;
 
 public class MenuViewController {
 	private Main main;
@@ -19,30 +20,56 @@ public class MenuViewController {
     @FXML
     private ProgressBar progressBar;
     
-    private ShowProgressBar bar;
+	private double progress;
+	private double step;
 
+	public void setStep(int fractions) {
+		step = 1d/fractions;
+	}
+	
     @FXML
-    void generateData(ActionEvent event) {
+    void generateData() {
     	try {
-			boolean end = main.generateData(Integer.parseInt(totalPeopleInput.getText()));
-			if (end) seeDataButton.setDisable(false);
-	    	bar = new ShowProgressBar(progressBar, main.getBack().getTotalPeople());
-	    	bar.run();
-    	} catch (Exception e) {
+    		int totalPeople = Integer.parseInt(totalPeopleInput.getText());
+			main.generateData(totalPeople, this);
+			setStep(totalPeople);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
     
-    public void progressBarStep() {
-    	//bar.step();
-    }
-    
     @FXML
-    void seeData(ActionEvent event) {
+    void seeData() {
     	main.openMainView();
     }
 
     public void setMain(Main main) {
     	this.main = main;
     }
+
+	public ProgressBar getProgressBar() {
+		progress = 0;
+		return progressBar;
+	}
+	
+	public void step() {
+		progress += step;
+		progressBar.setProgress(progress);
+	}
+
+	public void endOfGeneration(int seconds) {		
+		Platform.runLater(new Runnable() {
+		    @Override
+		    public void run() {
+				seeDataButton.setDisable(false);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setTitle("Datos generados");
+				alert.setContentText("Los datos han sido generados exitosamente. Tiempo de operación: " + (seconds/60) + ":" + (seconds%60));
+				alert.showAndWait();
+		    }
+		});
+	}
 }
