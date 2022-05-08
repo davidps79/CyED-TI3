@@ -101,7 +101,7 @@ public class MainViewController {
     
     @FXML
     void returnToMenu() {
-    	
+    	main.openMenuView();
     }
 
 	public void setMain(Main main) {
