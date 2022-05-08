@@ -66,7 +66,7 @@ public class MainViewController {
     
     @FXML
     void addPerson() {
-    	
+    	main.openAddView();
     }
 
     @FXML

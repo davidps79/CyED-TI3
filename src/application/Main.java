@@ -16,6 +16,12 @@ public class Main extends Application {
 	private Stage currentStage;
 	private Stage popUpStage;
 	
+	private final int POPUP_WIDTH = 380;
+	private final int POPUP_HEIGHT = 580;
+	
+	private final int MAIN_WIDTH = 1280;
+	private final int MAIN_HEIGH = 720;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		back = new Database();
@@ -24,7 +30,7 @@ public class Main extends Application {
 			BorderPane root = (BorderPane) loader.load();
 			MenuViewController controller = loader.getController();
 			controller.setMain(this);
-			Scene scene = new Scene(root,1280,720);
+			Scene scene = new Scene(root, MAIN_WIDTH, MAIN_HEIGH);
 			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Base de datos");
@@ -42,7 +48,7 @@ public class Main extends Application {
 			BorderPane root = (BorderPane) loader.load();
 			MainViewController controller = loader.getController();
 			controller.setMain(this);
-			Scene scene = new Scene(root,1280,720);
+			Scene scene = new Scene(root, MAIN_WIDTH, MAIN_HEIGH);
 			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
 			currentStage.setScene(scene);
 		} catch(Exception e) {
@@ -73,7 +79,7 @@ public class Main extends Application {
 			PersonViewController controller = loader.getController();
 			controller.showData(person);
 			controller.setMain(this);
-			Scene scene = new Scene(root, 300, 560);
+			Scene scene = new Scene(root, POPUP_WIDTH, POPUP_HEIGHT);
 			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.setTitle("Datos de persona");
@@ -87,5 +93,25 @@ public class Main extends Application {
 	public void closePopUp() {
 		popUpStage.close();
 		popUpStage = null;
+	}
+
+	public void openAddView() {
+		try {
+			Stage stage = new Stage();
+			popUpStage = stage;
+			stage.initModality(Modality.APPLICATION_MODAL);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/AddView.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+			AddViewController controller = loader.getController();
+			controller.setMain(this);
+			Scene scene = new Scene(root, POPUP_WIDTH, POPUP_HEIGHT);
+			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.setTitle("Agregar persona");
+			//primaryStage.getIcons().add(new Image("file:./resources/CoinLogo.png"));
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
