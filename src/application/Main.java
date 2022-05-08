@@ -25,6 +25,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		back = new Database();
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/MenuView.fxml"));
 			BorderPane root = (BorderPane) loader.load();
@@ -40,6 +41,7 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void openMainView() {
@@ -110,6 +112,22 @@ public class Main extends Application {
 			stage.setTitle("Agregar persona");
 			//primaryStage.getIcons().add(new Image("file:./resources/CoinLogo.png"));
 			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void openMenuView() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/MenuView.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+			MenuViewController controller = loader.getController();
+			controller.setMain(this);
+			Scene scene = new Scene(root, MAIN_WIDTH, MAIN_HEIGH);
+			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
+			currentStage.setScene(scene);
+			currentStage.setTitle("Base de datos");
+			//primaryStage.getIcons().add(new Image("file:./resources/CoinLogo.png"));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
