@@ -125,27 +125,6 @@ public class PersonViewController {
 	
 	@FXML
 	void editData() {
-		if (saveChanges) {
-			try {
-				main.getBack().deletePerson(person);
-				main.getBack().addPerson(
-					new Person(
-						person.getId(), 
-						name.getText(), 
-						lastname.getText(), 
-						Integer.parseInt(age.getText()), 
-						gender.getValue(), 
-						Integer.parseInt(height.getText()), 
-						country.getText(),
-						birthDate.getValue(),
-						person.getPictureLocation()
-					)
-				);
-				this.person = null;
-				main.closePopUp();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+
 	}
 }

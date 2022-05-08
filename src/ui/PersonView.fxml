@@ -42,7 +42,6 @@
             <DatePicker fx:id="birthDate" maxWidth="200.0" prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" text="Regresar" />
                   <Button fx:id="editDataButton" mnemonicParsing="false" onAction="#editData" text="Editar" />
                </children>
                <VBox.margin>
