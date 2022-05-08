@@ -41,7 +41,6 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void openMainView() {
@@ -126,7 +125,6 @@ public class Main extends Application {
 			Scene scene = new Scene(root, MAIN_WIDTH, MAIN_HEIGH);
 			scene.getStylesheets().add(getClass().getResource("../ui/application.css").toExternalForm());
 			currentStage.setScene(scene);
-			currentStage.setTitle("Base de datos");
 			//primaryStage.getIcons().add(new Image("file:./resources/CoinLogo.png"));
 		} catch(Exception e) {
 			e.printStackTrace();
