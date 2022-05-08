@@ -51,6 +51,14 @@ public class AddViewController {
     private Main main; 
     
     @FXML
+	void initialize() {
+		ArrayList<String> arr = new ArrayList<>();
+		arr.add("Masculino");
+		arr.add("Femenino");
+		genderInput.setItems(FXCollections.observableList(arr));
+	}
+    
+    @FXML
     void addPerson(ActionEvent event) {
     	try {
     		String name = nameInput.getText(); 

@@ -6,15 +6,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Gender;
@@ -26,31 +29,31 @@ public class PersonViewController {
 	private boolean saveChanges = true;
 	
     @FXML
-    private TextField age;
+    private TextField ageInput;
 
     @FXML
-    private TextField country;
+    private TextField countryInput;
 
     @FXML
-    private TextField name;
+    private TextField nameInput;
     
     @FXML
-    private TextField lastname;
+    private TextField lastnameInput;
 
     @FXML
-    private ComboBox<String> gender;
+    private ComboBox<String> genderInput;
 
     @FXML
-    private TextField height;
+    private TextField heightInput;
 
     @FXML
-    private TextField id;
+    private TextField idInput;
 
     @FXML
-    private ImageView picture;
+    private ImageView pictureInput;
     
     @FXML
-    private DatePicker birthDate;
+    private DatePicker birthDateInput;
     
     @FXML
     private Button editDataButton;
@@ -74,18 +77,18 @@ public class PersonViewController {
 		}
 		
 		Image image = new Image("file:files/image/" + person.getId() + ".jpg");
-		picture.setImage(image);
-		age.setText(person.getAge() + "");
-		country.setText(person.getNationality());
-		name.setText(person.getName());
-		lastname.setText(person.getLastname());
+		pictureInput.setImage(image);
+		ageInput.setText(person.getAge() + "");
+		countryInput.setText(person.getNationality());
+		nameInput.setText(person.getName());
+		lastnameInput.setText(person.getLastname());
 		
-		if (person.getGender() == Gender.FEMALE) gender.setValue("Femenino");
-		else gender.setValue("Masculino");
+		if (person.getGender() == Gender.FEMALE) genderInput.setValue("Femenino");
+		else genderInput.setValue("Masculino");
 		
-		height.setText(person.getHeight() + "");
-		id.setText(person.getId());
-		birthDate.setValue(person.getBirthDate());
+		heightInput.setText(person.getHeight() + "");
+		idInput.setText(person.getId());
+		birthDateInput.setValue(person.getBirthDate());
 	}
 
 	@FXML
@@ -93,7 +96,7 @@ public class PersonViewController {
 		ArrayList<String> arr = new ArrayList<>();
 		arr.add("Masculino");
 		arr.add("Femenino");
-		gender.setItems(FXCollections.observableList(arr));
+		genderInput.setItems(FXCollections.observableList(arr));
 	}
 	
 	public void downloadImage(String search, String path) throws IOException {
@@ -125,6 +128,21 @@ public class PersonViewController {
 	
 	@FXML
 	void editData() {
-
+		try {
+    		String name = nameInput.getText(); 
+    		String lastName = lastnameInput.getText();
+    		int age = Integer.parseInt(ageInput.getText());
+    		LocalDate date = birthDateInput.getValue();
+    		int height = Integer.parseInt(heightInput.getText());
+    		//String nationality = nationalityText.getValue();
+    		//main.getBack().addPerson(new Person());
+    		
+    	} catch (NumberFormatException | NullPointerException e) {
+    		Alert alert = new Alert(AlertType.WARNING);
+    		alert.setTitle("Entrada inválida");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Revisa las entradas, hay campos vacíos o inválidos");
+    		alert.showAndWait();
+    	}
 	}
 }

@@ -17,7 +17,7 @@ public class Main extends Application {
 	private Stage popUpStage;
 	
 	private final int POPUP_WIDTH = 380;
-	private final int POPUP_HEIGHT = 580;
+	private final int POPUP_HEIGHT = 620;
 	
 	private final int MAIN_WIDTH = 1280;
 	private final int MAIN_HEIGH = 720;
