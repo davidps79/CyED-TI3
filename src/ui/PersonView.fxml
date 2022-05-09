@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonViewController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <ImageView fx:id="pictureInput" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></ImageView>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Id" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="idInput" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Nombre" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="nameInput" alignment="CENTER" maxHeight="25.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Apellido" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="lastnameInput" alignment="CENTER" maxHeight="25.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Edad" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="ageInput" alignment="CENTER" maxHeight="25.0" maxWidth="140.0" prefHeight="25.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets right="16.0" />
+                           </HBox.margin></TextField>
+                        <Label text="Años" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Género" />
+                           </children>
+                        </HBox>
+                        <ComboBox fx:id="genderInput" maxWidth="200.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="País" />
+                           </children>
+                        </HBox>
+                        <ComboBox fx:id="countryInput" maxWidth="200.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Estatura" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="heightInput" alignment="CENTER" maxHeight="25.0" maxWidth="140.0" prefHeight="25.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin></TextField>
+                        <Label text="Cm" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="25.0" maxWidth="300.0" prefHeight="25.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="80.0" prefHeight="100.0" prefWidth="80.0">
+                           <children>
+                              <Label text="Nacimiento" />
+                           </children>
+                        </HBox>
+                        <DatePicker fx:id="birthDateInput" maxHeight="25.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></DatePicker>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
+                  <Button fx:id="editDataButton" mnemonicParsing="false" onAction="#editData" text="Guardar cambios" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
